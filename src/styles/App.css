@@ -1,0 +1,13 @@
+.master {
+  background-image: url('/assets/backgroundImage1.jpg');
+  background-size: cover;
+  height: 100vh;
+}
+
+.homePage {
+  height: 100vh;
+}
+
+.navBar {
+  padding-right: 2em;
+}
