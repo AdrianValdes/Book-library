@@ -2,10 +2,19 @@ import React from 'react';
 
 import { Link } from 'react-router-dom';
 import { Menu } from 'semantic-ui-react';
-import { auth } from '../../../configs/firebaseConfig';
+import SignedInLinks from './SignedInLinks';
+import SignedOutLinks from './SignedOutLinks';
 import { connect } from 'react-redux';
 
-const NavBar = ({ currentUser }) => {
+const NavBar = (props) => {
+  const { auth, profile } = props;
+  // console.log(auth);
+
+  const links = auth.uid ? (
+    <SignedInLinks profile={profile} />
+  ) : (
+    <SignedOutLinks />
+  );
   return (
     <Menu className="navBar" secondary>
       <Menu.Item>
@@ -17,42 +26,23 @@ const NavBar = ({ currentUser }) => {
           />
         </Link>
       </Menu.Item>
-      <Menu.Item>
-        <Link to="/startPage">StartPage</Link>
-      </Menu.Item>
 
       <Menu.Menu position="right">
         <Menu.Item>
           <Link to="/searchForm">Search</Link>
         </Menu.Item>
-
-        <Menu.Item>
-          <Link to="/login">Login</Link>
-        </Menu.Item>
-        <Menu.Item>
-          <Link to="/signUp">Sign up</Link>
-        </Menu.Item>
-
-        {currentUser && currentUser ? (
-          <Menu.Item>
-            <div
-              onClick={() =>
-                auth.signOut().then(() => {
-                  console.log('User signed out');
-                })
-              }
-            >
-              Sign out
-            </div>
-          </Menu.Item>
-        ) : null}
+        {links}
       </Menu.Menu>
     </Menu>
   );
 };
 
-const mapStateToProps = (state) => ({
-  currentUser: state.auth.currentUser,
-});
+const mapStateToProps = (state) => {
+  //console.log(state);
+  return {
+    auth: state.firebase.auth,
+    profile: state.firebase.profile,
+  };
+};
 
-export default connect(mapStateToProps, null)(NavBar);
+export default connect(mapStateToProps)(NavBar);

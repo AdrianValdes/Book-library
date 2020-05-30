@@ -14,11 +14,11 @@ const firebaseConfig = {
 };
 
 firebase.initializeApp(firebaseConfig);
-export const auth = firebase.auth();
+//export const auth = firebase.auth();
 
 //Using firestore
-export const db = firebase.firestore();
+//export const db = firebase.firestore();
 //Update firestore settings
 //db.settings({ timestampsInSnapshots: true }); No longer required
-
+firebase.firestore();
 export default firebase;
