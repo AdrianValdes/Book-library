@@ -2,7 +2,7 @@ import React from 'react';
 
 function BooksResponse(props) {
   const { items } = props.books;
-  console.log(items);
+
   return (
     <React.Fragment>
       <div>
